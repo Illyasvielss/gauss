@@ -24,19 +24,17 @@ for k = 1:row_coeff-1
                     for j = k+1:row_coeff %for1
                         Coefficient_matrix(i,j) = Coefficient_matrix(i,j) - ...
                         L_ik*Coefficient_matrix(k,j); % 更新a(i,j)              
-                        disp( 'Coefficient_matrix(i,j) ');
-                        disp( Coefficient_matrix(i,j) );
+                        %disp( 'Coefficient_matrix(i,j) ');
+                       % disp( Coefficient_matrix(i,j) );
                         if ( j<col_coeff+1 &&stop==0)
                             aa(i,j)=Coefficient_matrix(i,j) ;
-                            fprintf('stop=%d\n',stop);
+                            %fprintf('stop=%d\n',stop);
                         else
                             stop=1;
-                            fprintf('stop=%d\n',stop);
+                            %fprintf('stop=%d\n',stop);
                          end %endif
-                     disp(aa);
+                     %disp(aa);每一位的变化
                      end %endfor1
-                     fprintf('i%d\n',i);
-                     fprintf('j%d\n',j);
                stop=0;
                Load_matrix(i) = Load_matrix(i) - Load_matrix(k)*L_ik; % 更新b(i)
                %disp(Load_matrix(i));
@@ -46,10 +44,7 @@ for k = 1:row_coeff-1
                 Coefficient_matrix(i,1) = 0;   
             end %for2循环结束  
         disp('sss');
-        disp(i);
-        disp(col_coeff-1);
         aa(i,col_coeff-1)=0;
-        disp(aa);
 end % for循环结束
 
 
