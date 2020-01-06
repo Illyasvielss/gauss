@@ -1,4 +1,4 @@
-function aa= GaussElimination01(Coefficient_matrix,Load_matrix)
+function yy= GaussElimination01(Coefficient_matrix,Load_matrix)
 %  inputs:
 %         Coefficient_matrix:系数矩阵，为n*n维方阵
 %         Load_matrix       :载荷矩阵，为n*1维矩阵
@@ -16,7 +16,14 @@ aa(1,col_coeff+1) =Load_matrix(1);
 disp('initializing aa');
 disp(aa);
 stop=0; 
+k=0;yi=0;
+breakkey=1;
+while( k<row_coeff)
 for k = 1:row_coeff-1
+     % 检查主对角元素第i行的第i个元素是否为0
+        if Coefficient_matrix(k,k) == 0
+            print('主对角元素错误！');
+        else
             % 循环计算第k+1行到最后一行
             for i = k+1:row_coeff %for2
                L_ik = Coefficient_matrix(i,k) / Coefficient_matrix(k,k); %更新L_ik
@@ -24,8 +31,8 @@ for k = 1:row_coeff-1
                     for j = k+1:row_coeff %for1
                         Coefficient_matrix(i,j) = Coefficient_matrix(i,j) - ...
                         L_ik*Coefficient_matrix(k,j); % 更新a(i,j)              
-                        %disp( 'Coefficient_matrix(i,j) ');
-                       % disp( Coefficient_matrix(i,j) );
+                        disp( 'Coefficient_matrix(i,j) ');
+                        disp( Coefficient_matrix(i,j) );
                         if ( j<col_coeff+1 &&stop==0)
                             aa(i,j)=Coefficient_matrix(i,j) ;
                             %fprintf('stop=%d\n',stop);
@@ -33,7 +40,7 @@ for k = 1:row_coeff-1
                             stop=1;
                             %fprintf('stop=%d\n',stop);
                          end %endif
-                     %disp(aa);每一位的变化
+                     disp(aa);%每一位的变化
                      end %endfor1
                stop=0;
                Load_matrix(i) = Load_matrix(i) - Load_matrix(k)*L_ik; % 更新b(i)
@@ -42,10 +49,43 @@ for k = 1:row_coeff-1
                 disp(aa);
               %  fprintf('stop=%d\n',stop);
                 Coefficient_matrix(i,1) = 0;   
+                count = 0;
+                for s=1:col_coeff
+                    if aa(i,s)==0
+                        count=count+1;
+                    else
+                       break ;
+                    end
+                end             
+                    disp('count');
+                    disp(count);
+                if count==col_coeff
+                    breakkey=0;
+                    yy=Load_matrix(i) ;
+                    yi=i;
+                    break;
+                else
+                    continue;
+                end
             end %for2循环结束  
+        
         disp('sss');
         aa(i,col_coeff-1)=0;
+            end
+        disp(aa);
+        if breakkey==0
+         break;
+        end
 end % for循环结束
+disp('breakkey');
+disp(breakkey);
+if breakkey==0
+    disp('yi');
+    disp(yi );
+    break;
+end
+
+end %while
 
 
 
